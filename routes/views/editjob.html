@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recruiters</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/recruiters">Recruiters</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" href="/recruiters">All Jobs</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/recruiters/postjob">Post a job</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/recruiters/bulk-upload">Bulk Upload Jobs</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+    </nav>
+    <form action="" method="post" style="margin: 25px;">
+        <div class="mb-3">
+          <label for="job_title" class="form-label">Job Title</label>
+          <input type="text" class="form-control" id="job_title" name="job_title" required>
+        </div>
+        <div class="mb-3">
+            <label for="job_location" class="form-label">Job Location</label>
+            <input type="text" class="form-control" id="job_location" name="job_location" required>
+        </div>
+        <div class="mb-3">
+            <label for="salary" class="form-label">Salary</label>
+            <input type="text" class="form-control" id="salary" name="salary" required>
+        </div>
+        <div class="mb-3">
+            <label for="no_of_positions" class="form-label">Number Of Positions</label>
+            <input type="text" class="form-control" id="no_of_positions" name="no_of_positions" required> 
+        </div>
+        <div class="mb-3">
+            <label for="contact_email" class="form-label">Contact Email</label>
+            <input type="email" class="form-control" id="contact_email" name="contact_email" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Edit Job</button>
+    </form>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        var url_string =  window.location.href;
+        var url = new URL(url_string);
+        var id = url.pathname.split("/")[3]
+        $.ajax({
+        url: '/recruiters/getjob/'+ id.toString(),
+        success: function (data) {
+            console.log(data);
+            var job_obj = data;
+            document.getElementById("job_title").value = job_obj["job_title"];
+            document.getElementById("job_location").value = job_obj["job_location"];
+            document.getElementById("salary").value = job_obj["salary"];
+            document.getElementById("no_of_positions").value = job_obj["no_of_positions"];
+            document.getElementById("contact_email").value = job_obj["contact_email"];
+        }
+        });
+    </script>
+</body>
+</html>
